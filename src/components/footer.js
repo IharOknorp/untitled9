@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import {browserHistory, Link} from 'react-router';
+import {Link} from 'react-router';
 
 class Footer extends Component {
 
@@ -10,7 +8,6 @@ class Footer extends Component {
             <div>
                 <footer>
                     <ul>
-
                         <li>< Link to = "/profile" >profile </Link> </li>
                         <li> < Link to = "/news" >news </Link></li>
                         <li> < Link to = "/login" >login </Link></li>

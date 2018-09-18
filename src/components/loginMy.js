@@ -3,12 +3,8 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import {browserHistory} from 'react-router';
 import Footer from './footer.js';
-
 import { bindActionCreators } from 'redux';
-
 import {setUsername} from '../actions/index'
-
-
 import { connect } from 'react-redux'
 
 class Login extends Component {
@@ -21,14 +17,11 @@ class Login extends Component {
         };
 
         this.handlePassChange = this.handlePassChange.bind(this);
-        //this.handleUserChange = this.handleUserChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this);
-
     }
 
     handleSubmit(evt) {
         evt.preventDefault();
-
 
         if (this.props.username !== "Admin") {
             return this.setState({error: 'Username is required'});
@@ -40,17 +33,8 @@ class Login extends Component {
         this.setState({error: ''});
         localStorage.setItem("isAdmin", true);
 
-
         return  browserHistory.push('/profile');
     }
-
-    // handleUserChange(evt) {
-    //     this.setState({
-    //         username: evt.target.value,
-    //     });
-    // };
-
-
 
     handlePassChange(evt) {
 
@@ -59,15 +43,13 @@ class Login extends Component {
         });
     }
 
-
-
     render() {
 
         const setUsername = this.props.setUsername;
         console.log(this.props)
         return (
             <div>
-            <form onSubmit={this.handleSubmit}>
+            <form onSubmit = {this.handleSubmit}>
                 {
                     this.state.error &&
                     <h3 data-test="error" onClick={this.dismissError}>
@@ -107,9 +89,6 @@ class Login extends Component {
             < Footer />
             </div>
         )
-
-
-
     }
 }
 

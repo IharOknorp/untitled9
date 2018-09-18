@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
-
 import {browserHistory} from 'react-router';
 import {Router, Route} from 'react-router';
 import Main from './components/main.js';
@@ -9,14 +7,8 @@ import LoginMy from './components/loginMy.js';
 import Profile from './components/profile.js';
 import News from './components/news.js';
 
-
-
-
-
-
 function requireAuth(nextState, replace) {
     var isAdmin = localStorage.getItem('isAdmin');
-
 
     if(isAdmin == "false") {
 
@@ -38,7 +30,5 @@ class App extends Component {
     );
   }
 }
-
-
 
 export default App;
