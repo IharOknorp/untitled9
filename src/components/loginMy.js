@@ -18,7 +18,7 @@ class Login extends Component {
         evt.preventDefault();
 
         if (this.props.username !== "Admin"
-            || +this.props.password !== 12345 ) {
+            || this.props.password !== "12345" ) {
             return this.props.setError("Имя пользователя или пароль введены не верно");
         }
 
