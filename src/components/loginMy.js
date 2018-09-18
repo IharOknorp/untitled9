@@ -4,57 +4,42 @@ import Button from '@material-ui/core/Button';
 import {browserHistory} from 'react-router';
 import Footer from './footer.js';
 import { bindActionCreators } from 'redux';
-import {setUsername} from '../actions/index'
+import {setUsername, setPassword, setError} from '../actions/index'
 import { connect } from 'react-redux'
 
 class Login extends Component {
     constructor() {
         super();
-        this.state = {
-            username: '',
-            password: '',
-            error: '',
-        };
 
-        this.handlePassChange = this.handlePassChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+      this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleSubmit(evt) {
         evt.preventDefault();
 
-        if (this.props.username !== "Admin") {
-            return this.setState({error: 'Username is required'});
+        if (this.props.username !== "Admin"
+            || +this.props.password !== 12345 ) {
+            return this.props.setError("Имя пользователя или пароль введены не верно");
         }
 
-        if (this.state.password !== 12345 ) {
-            return this.setState({error: 'Password is required'});
-        }
-        this.setState({error: ''});
+        this.props.setError("");
         localStorage.setItem("isAdmin", true);
 
         return  browserHistory.push('/profile');
     }
 
-    handlePassChange(evt) {
-
-        this.setState({
-            password: +evt.target.value,
-        });
-    }
-
     render() {
 
         const setUsername = this.props.setUsername;
-        console.log(this.props)
+        const setPassword = this.props.setPassword;
+
         return (
             <div>
-            <form onSubmit = {this.handleSubmit}>
+            <form  onSubmit = {this.handleSubmit}>
                 {
-                    this.state.error &&
-                    <h3 data-test="error" onClick={this.dismissError}>
-                        <Button onClick={this.dismissError}>✖</Button>
-                        {this.state.error}
+                    this.props.error &&
+                    <h3>
+                        {this.props.error}
                     </h3>
                 }
 
@@ -63,15 +48,13 @@ class Login extends Component {
                                value={this.props.username}
                                onChange={(event) => {setUsername(event.target.value)}}>
                                placeholder="Login">
-                               {/*onChange={this.handleUserChange}>*/}
-
                     </TextField>
                 </div>
                 <div>
                     <TextField type="password"
-                               placeholder="password"
-                               onChange={this.handlePassChange}>
-
+                               value={this.props.password}
+                               onChange={(event) => {setPassword(event.target.value)}}>
+                               placeholder="password">
                     </TextField>
                 </div>
 
@@ -94,13 +77,16 @@ class Login extends Component {
 
 const mapStateToProps = (state) => ({
 
-    username: state.username
+    username: state.username,
+    password: state.password,
+    error: state.error
 })
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        setUsername: bindActionCreators(setUsername,dispatch)
-
+        setUsername: bindActionCreators(setUsername,dispatch),
+        setPassword: bindActionCreators(setPassword,dispatch),
+        setError: bindActionCreators(setError,dispatch)
         }
     }
 
